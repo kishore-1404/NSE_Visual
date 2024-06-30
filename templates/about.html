@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TitanTrade</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+            background-color: #00204a;
+            /* Set your desired background color */
+            
+            font-family: "Open Sans", sans-serif;
+
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            height: 55px;
+            /* Set a fixed height */
+            background-image: url('images/hero-bg.png');
+            /* Replace 'your-image.jpg' with the path to your image */
+            background-size: cover;
+            /* Ensure the image covers the entire background */
+            background-position: center;
+            /* Center the background image */
+            padding: 25px 5px;
+            z-index: 1001;
+            /* Ensure the navigation bar is above the sidebar */
+            display: flex;
+            align-items: center;
+            /* Align items vertically in the middle */
+            justify-content: space-between;
+        }
+
+        #logo {
+            margin-left: 20px;
+
+            /* Add some left margin to space the logo from the left edge */
+        }
+
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            /* Align items vertically in the middle */
+            justify-content: flex-end;
+        }
+
+        nav li {
+            margin-right: 30px;
+
+        }
+
+        .nav-link:hover {
+            color: #00bbf0;
+            /* Change to your desired hover background color */
+        }
+
+        .nav-item.active a {
+            color: #00bbf0;
+            /* Change to your desired selected background color */
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            transition: color 0.3s ease;
+            /* Add smooth transition for text color change */
+        }
+
+        #content {
+            margin-top: 70px;
+            /* Set margin equal to the height of the navigation bar */
+            padding: 0px;
+            /* Add padding to the content as needed */
+        }
+
+        .center-content {
+        text-align: center;
+        margin-top: 70px; /* Set margin equal to the height of the navigation bar */
+        }
+
+        .heading {
+            margin-bottom: 20px;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-width: 1200px;
+            /* Set your desired max width */
+            width: 90%;
+            margin-top:30px /* Adjust the margin-top value as needed */
+        }
+
+        .detail-box {
+            flex: 1;
+            width: 100%;
+            max-width: 1200px;
+            
+            /* Set your desired background color for the detail box */
+            padding: 20px;
+            
+            /* Set your desired box shadow */
+            text-align: left;
+        }
+
+        .container img {
+            width: 50%;
+            max-width: 60%;
+            height: auto;
+            border-radius: 8px;
+            /* Optional: Set border-radius for the image */
+        }
+
+        .heading .us-text {
+            color: #00bbf0; /* Replace with your desired color code */
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <div id="logo"> <!-- Add a div for the logo or your element -->
+            <div class="logo-link">
+                <img src="/static/images/logo.png" width="250px" style="border-radius:20px;"><!-- Add your logo or element content -->
+        </div>
+        </div>
+
+        <ul>
+            <li class="nav-item {% if request.path == '/' %}active{% endif %}">
+                <a class="nav-link" href="{{ url_for('index') }}">HOME </a>
+            </li>
+            
+
+            <li class="nav-item {% if request.path == '/service' %}active{% endif %}">
+                <a class="nav-link" href="service">SERVICES</a>
+            </li>
+            <li class="nav-item {% if request.path == '/about' %}active{% endif %}">
+                <a class="nav-link" href="about"> ABOUT
+                </a>
+            </li>
+
+            <li class="nav-item {% if request.path == '/login' %}active{% endif %}">
+                <a class="nav-link" href='login'> LOGIN</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- about section -->
+    <div class="center-content">
+        <div class="heading">
+            <h1>
+            About <span class="us-text">Us</span>
+            </h1>
+        </div>
+
+        <div class="container">
+            <img src="/static/images/about-img.png" alt="">
+            <div class="detail-box">
+                <h2>
+                    We Are TitanTrade
+                </h2>
+                <p>
+                    Welcome to TitanTrade, where we are dedicated to revolutionizing NIFTY50 trading.
+                    Founded by a team of seasoned professionals with a collective experience spanning 10 years, our mission
+                    at TitanTrade is to empower investors with cutting-edge technology and comprehensive resources.
+                    We strive to simplify the complexities of trading, providing real-time market data, advanced tools, and
+                    a seamless user experience.
+                </p>
+                <p>
+                    We are ensuring that both seasoned traders and beginners have access to market insights, expert
+                    analysis, and a customer support team ready to assist.
+                    Join us on the journey of financial empowerment at [Your Trading Platform Name], where your success is
+                    our priority.
+                </p>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

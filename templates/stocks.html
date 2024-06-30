@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TitanTrade</title>
+    <style>
+        body {
+            font-family: "Open Sans", sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            height: 55px;
+            background-image: url('/static/images/hero-bg.png');
+            background-size: cover;
+            background-position: center;
+            padding: 25px 5px;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        #logo {
+            margin-left: 20px;
+        }
+
+        .logo-link {
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        nav li {
+            margin-right: 30px;
+        }
+
+        .nav-link:hover {
+            color: #00bbf0;
+        }
+
+        .nav-item.active a {
+            color: #00bbf0;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        #content {
+            margin-top: 70px;
+            padding: 20px;
+        }
+
+        #table-container {
+            margin: 20px auto;
+            /* Center the table container */
+            width: 80%;
+            /* Adjust the width as needed */
+            margin-left: 500px;
+            margin-right: 50px;
+            margin-top: -650px;
+        }
+
+        table {
+            width: 90%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+
+        #page-links {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 10px;
+            margin-top: 100px;
+        }
+
+        .page-link-box {
+            margin-right: 20px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .page-link-box:hover {
+            background-color: lightskyblue;
+        }
+
+        .page-link-box.active {
+            background-color: #00bbf0;
+        }
+
+        .page-link {
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .container {
+            display: flex;
+        }
+
+        .checkbox-container {
+            width: 350px;
+            background-color: #e6f7ff;
+            /* Set your desired background color */
+            padding: 15px;
+            border: 2px solid #4d94ff;
+            /* Set your desired border color */
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .checkbox-heading h2 {
+            margin-bottom: 10px;
+        }
+
+        .checkbox-items {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .checkbox-item {
+            margin-bottom: 10px;
+        }
+
+        .checkbox-item input {
+            margin-right: 5px;
+        }
+
+        .apply-filters{
+                padding: 9px;
+                border: 2px;
+                background-color: #0cd1a0;
+                width: 266px;
+                border-radius: 20px;
+                margin-left: 42px;
+                box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            }
+
+        #horizontal-bar {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+
+            overflow-x: auto;
+            /* Add horizontal scroll */
+            position: relative;
+            top: -70px;
+            max-width: 55%;
+            /* Set a specific width (adjust as needed) */
+            margin-left: auto;
+            /* Center the bar by pushing it to the right */
+            margin-right: auto;
+            /* Center the bar by pushing it to the left */
+            
+
+        }
+
+        .added-item-box {
+            background-color: #f0f8ff;
+            /* Set background color for the added-item boxes */
+            margin-right: 20px;
+            background-color: burlywood;
+            padding: 20px;
+            /* Add padding for spacing inside the box */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            white-space: nowrap;
+            /* Prevent text from wrapping (BAJA-AUTO) */
+
+        }
+
+        .input-field{
+            width:100px;
+            height:20px;
+        }
+
+        #basic-filters{
+            padding: 9px;
+                border: 2px;
+                background-color: white;
+                width: 100 px;
+                border-radius: 20px;
+                margin-left: 10px;
+                box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .basic-filters-containers{
+            display:flex;
+            justify-content:left;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        .add-button{
+            background-color: #00bbf0;
+            border:0;
+            width:29px;
+            height:27px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <div id="logo">
+            <div class="logo-link">
+                <img src="/static/images/logo.png" width="250px" style="border-radius:20px;"><!-- Add your logo or element content -->
+        </div>
+        </div>
+        <ul>
+            <li class="nav-item">
+                <a class="nav-link" href="/"> LOGOUT</a>
+            </li>
+        </ul>
+    </nav>
+    <div id="page-links">
+        <div class="page-link-box active">
+            <a href="stocks" class="page-link">STOCKS</a>
+        </div>
+        <div class="page-link-box">
+            <a href="charts" class="page-link">CHARTS</a>
+        </div>
+    </div>
+
+    <div id="horizontal-bar">
+        <!-- The added items will be displayed here -->
+    </div>
+
+    <!-- Content -->
+    <div id="content">
+
+
+        <!-- Additional Boxes with Links -->
+        
+
+      
+
+        <!-- Checkbox Container with Heading -->
+        <div class="checkbox-container">
+            <h1>Filters:</h1>
+            <div class="checkbox-heading">
+            </div>
+            <!-- Filter Option 1: Min and Max Price Input Fields -->
+            <div class="filterOption">
+                <label for="filterOption1" style="font-weight: bold;">Current Price:</label>
+                <div class="filterOption">
+                    <label for="minPrice">Minimum Price:</label>
+                    <input type="number" id="minPrice" class="input-field" name="minPrice" step="0.01" required>
+                </div>
+
+                <div class="filterOption">
+                    <label for="maxPrice">Maximum Price:</label>
+                    <input type="number" id="maxPrice" class="input-field" name="maxPrice" step="0.01" required>
+                </div>
+            </div><br>
+            <!-- Filter Option 2: Volume Input Fields -->
+            <div class="filterOption">
+                <label for="filterOption2" style="font-weight: bold;">Volume:</label>
+                <div class="filterOption">
+                    <label for="minVolume">Minimum Volume:</label>
+                    <input type="number" id="minVolume" class="input-field" name="minVolume" step="100" required>
+                </div>
+
+                <div class="filterOption">
+                    <label for="maxVolume">Maximum Volume:</label>
+                    <input type="number" id="maxVolume" class="input-field" name="maxVolume" step="100" required>
+                </div>
+            </div><br>
+            <!-- Filter Option 2: Volume Input Fields -->
+            <div class="filterOption">
+                <label for="filterOption3" style="font-weight: bold;">Average Price:</label>
+                <div class="filterOption">
+                    <label for="minAvgPrice">Minimum Difference:</label>
+                    <input type="number" id="minAvgPrice" class="input-field" name="minAvgPrice" step="1" required>
+                </div>
+            </div><br>
+            <div>
+            <button class="apply-filters" type="button" onclick="applyFilters()">Apply Filters</button>
+                </div>
+            <h2>Basic:</h2>
+            <div class="basic-filters-containers">
+                <button id="basic-filters" type="button" onclick="applyFilters_avgP()">Average Price > currentPrice</button>
+            </div>
+
+            <div class="basic-filters-containers">
+                <button id="basic-filters" type="button" onclick="LowToHigh()">Low to High</button>
+            </div>
+
+            <div class="basic-filters-containers">
+                <button id="basic-filters" type="button" onclick="HighToLow()">High to Low</button>
+            </div>
+
+
+        </div>
+    </div>
+
+
+    <!-- Table Container -->
+    <div id="table-container">
+        <!-- Stock Information Table -->
+        <table id="stockDataTable" border="1">
+            <thead>
+                <tr>
+                    <th>Symbol</th>
+                    <th>Open</th>
+                    <th>Previous Close</th>
+                    <th>Current Price</th>
+                    <th>Day High</th>
+                    <th>Select</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Table body will be populated dynamically -->
+            </tbody>
+        </table>
+    </div>
+    </div>
+
+
+    <script>
+        // Fetch data from the API endpoint
+        function Tapulate() {
+            fetch(`/api/stock_data`)
+                .then(response => response.json())
+                .then(data => {
+                    // Get the table body element
+                    const tableBody = document.querySelector('#stockDataTable tbody');
+
+
+
+                    // Loop through the data and populate the table rows
+                    data.forEach(stock => {
+                        const row = document.createElement('tr');
+
+                        // Add data to the table cells
+                        const cells = ['symbol', 'open', 'previousClose', 'currentPrice', 'dayHigh'];
+                        cells.forEach(cell => {
+                            const cellElement = document.createElement('td');
+                            cellElement.textContent = stock[cell];
+                            row.appendChild(cellElement);
+                        });
+
+                        const plusCell = document.createElement('td');
+                        const addButton = document.createElement('button');
+                        addButton.classList.add('add-button'); 
+                        addButton.textContent = '+';
+                        addButton.addEventListener('click', function () {
+                            addSymbol(stock['symbol']);
+                        });
+                        plusCell.appendChild(addButton);
+                        // Append the button to the cell
+                        row.appendChild(plusCell);
+
+
+                        // Append the row to the table body
+                        tableBody.appendChild(row);
+
+
+                    });
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        }
+        function getWatchlistSymbols() {
+            fetch('/api/watchlist_symbols')
+                .then(response => response.json())
+                .then(symbols => {
+                    const horizontalBar = document.getElementById('horizontal-bar');
+                    horizontalBar.innerHTML = ''; // Clear existing items
+                    symbols.forEach(symbol => {
+                        const addedItemBox = document.createElement('div');
+                        addedItemBox.className = 'added-item-box';
+                        addedItemBox.textContent = symbol;
+                        horizontalBar.appendChild(addedItemBox);
+                    });
+                })
+                .catch(error => console.error('Error fetching watchlist symbols:', error));
+        }
+
+        window.onload = function () {
+            Tapulate();
+            getWatchlistSymbols();
+
+        }
+
+        function applyFilters() {
+            const minPrice = document.getElementById('minPrice').value;
+            const maxPrice = document.getElementById('maxPrice').value;
+            const minVolume = document.getElementById('minVolume').value;
+            const maxVolume = document.getElementById('maxVolume').value;
+            const minDiffPrice = document.getElementById('minAvgPrice').value;
+
+            // Build the URL with only the provided filter parameters
+            const url = `/stocks/filter?` +
+                (minPrice ? `min_price=${minPrice}&` : '') +
+                (maxPrice ? `max_price=${maxPrice}&` : '') +
+                (minVolume ? `min_volume=${minVolume}&` : '') +
+                (maxVolume ? `max_volume=${maxVolume}&` : '') +
+                (minDiffPrice ? `min_diff_price=${minDiffPrice}` : '');
+
+            fetch(url)
+                .then(response => response.json())
+                .then(filteredData => {
+                    // Get the table body element
+                    const tableBody = document.querySelector('#stockDataTable tbody');
+
+                    // Clear existing table rows
+                    tableBody.innerHTML = '';
+
+                    // Loop through the filtered data and populate the table rows
+                    filteredData.forEach(stock => {
+                        const row = document.createElement('tr');
+
+                        // Add data to the table cells
+                        const cells = ['symbol', 'open', 'previousClose', 'currentPrice', 'dayHigh'];
+                        cells.forEach(cell => {
+                            const cellElement = document.createElement('td');
+                            cellElement.textContent = stock[cell];
+                            row.appendChild(cellElement);
+                        });
+                        const plusCell = document.createElement('td');
+                        const addButton = document.createElement('button');
+                        addButton.classList.add('add-button'); 
+                        addButton.textContent = '+';
+                        addButton.addEventListener('click', function () {
+                            addSymbol(stock['symbol']);
+                        });
+                        plusCell.appendChild(addButton);
+                        // Append the button to the cell
+                        row.appendChild(plusCell);
+
+                        // Append the row to the table body
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => console.error('Error applying filters:', error));
+        }
+        function applyFilters_avgP() {
+
+            const url = `/stocks/avgP_filter?`
+
+            fetch(url)
+                .then(response => response.json())
+                .then(filteredData => {
+                    // Get the table body element
+                    const tableBody = document.querySelector('#stockDataTable tbody');
+
+                    // Clear existing table rows
+                    tableBody.innerHTML = '';
+
+                    // Loop through the filtered data and populate the table rows
+                    filteredData.forEach(stock => {
+                        const row = document.createElement('tr');
+
+                        // Add data to the table cells
+                        const cells = ['symbol', 'open', 'previousClose', 'currentPrice', 'dayHigh'];
+                        cells.forEach(cell => {
+                            const cellElement = document.createElement('td');
+                            cellElement.textContent = stock[cell];
+                            row.appendChild(cellElement);
+                        });
+                        const plusCell = document.createElement('td');
+                        const addButton = document.createElement('button');
+                        addButton.textContent = '+';
+                        addButton.classList.add('add-button'); 
+                        addButton.addEventListener('click', function () {
+                            addSymbol(stock['symbol']);
+                        });
+                        plusCell.appendChild(addButton);
+                        // Append the button to the cell
+                        row.appendChild(plusCell);
+
+                        // Append the row to the table body
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => console.error('Error applying filters:', error));
+
+        }
+
+        function LowToHigh() {
+
+            const url = `/stocks/filt_lowtohigh?`
+
+            fetch(url)
+                .then(response => response.json())
+                .then(filteredData => {
+                    // Get the table body element
+                    const tableBody = document.querySelector('#stockDataTable tbody');
+
+                    // Clear existing table rows
+                    tableBody.innerHTML = '';
+
+                    // Loop through the filtered data and populate the table rows
+                    filteredData.forEach(stock => {
+                        const row = document.createElement('tr');
+
+                        // Add data to the table cells
+                        const cells = ['symbol', 'open', 'previousClose', 'currentPrice', 'dayHigh'];
+                        cells.forEach(cell => {
+                            const cellElement = document.createElement('td');
+                            cellElement.textContent = stock[cell];
+                            row.appendChild(cellElement);
+                        });
+                        const plusCell = document.createElement('td');
+                        const addButton = document.createElement('button');
+                        addButton.classList.add('add-button'); 
+                        addButton.textContent = '+';
+                        addButton.addEventListener('click', function () {
+                            addSymbol(stock['symbol']);
+                        });
+                        plusCell.appendChild(addButton);
+                        // Append the button to the cell
+                        row.appendChild(plusCell);
+
+                        // Append the row to the table body
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => console.error('Error applying filters:', error));
+
+        }
+
+        function HighToLow() {
+
+            const url = `/stocks/filt_hightolow?`
+
+            fetch(url)
+                .then(response => response.json())
+                .then(filteredData => {
+                    // Get the table body element
+                    const tableBody = document.querySelector('#stockDataTable tbody');
+
+                    // Clear existing table rows
+                    tableBody.innerHTML = '';
+
+                    // Loop through the filtered data and populate the table rows
+                    filteredData.forEach(stock => {
+                        const row = document.createElement('tr');
+
+                        // Add data to the table cells
+                        const cells = ['symbol', 'open', 'previousClose', 'currentPrice', 'dayHigh'];
+                        cells.forEach(cell => {
+                            const cellElement = document.createElement('td');
+                            cellElement.textContent = stock[cell];
+                            row.appendChild(cellElement);
+                        });
+                        const plusCell = document.createElement('td');
+                        const addButton = document.createElement('button');
+                        addButton.classList.add('add-button'); 
+                        addButton.textContent = '+';
+                        addButton.addEventListener('click', function () {
+                            addSymbol(stock['symbol']);
+                        });
+                        plusCell.appendChild(addButton);
+                        // Append the button to the cell
+                        row.appendChild(plusCell);
+
+                        // Append the row to the table body
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => console.error('Error applying filters:', error));
+        }
+
+        function UpdateList() { // Corrected function name
+            fetch(`/update_stock_list`)
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Stock data updated successfully!');
+                    } else {
+                        console.error('Failed to update stock data');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+        function addSymbol(symbol) {
+            fetch(`/WatchList_db/${symbol}`)
+                .then(response => {
+                    // Handle the response as needed (e.g., check for success or process data)
+                    if (!response.ok) {
+                        throw new Error(`Failed to fetch data for symbol ${symbol}`);
+                    }
+
+                    // Assuming you want to wait for the fetch to complete before calling getWatchlistSymbols
+                    getWatchlistSymbols();
+                })
+                .catch(error => {
+                    console.error(error);
+                    // Handle error appropriately
+                });
+        }
+
+
+    </script>
+
+
+
+</body>
+
+</html>

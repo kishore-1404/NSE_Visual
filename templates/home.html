@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TitanTrade</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: flex-start;
+            /* Decides where the elements in the body should start from*/
+            align-items: center;
+            height: 100vh;
+            /* Set your desired background color */
+            font-family: "Open Sans", sans-serif;
+            background-image: url('/static/images/hero-bg.png');
+            /* Replace 'your-image.jpg' with the path to your image */
+            background-size: cover;
+            /* Ensure the image covers the entire background */
+            background-position: center bottom;
+            /* Center the background image */
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            height: 55px;
+            /* Set a fixed height */
+            padding: 25px 5px;
+            z-index: 1001;
+            /* Ensure the navigation bar is above the sidebar */
+            display: flex;
+            align-items: center;
+            /* Align items vertically in the middle */
+            justify-content: space-between;
+        }
+
+        #logo {
+            margin-left: 20px;
+
+            /* Add some left margin to space the logo from the left edge */
+        }
+
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            /* Align items vertically in the middle */
+            justify-content: flex-end;
+        }
+
+        nav li {
+            margin-right: 30px;
+
+        }
+
+        .nav-link:hover {
+            color: #00bbf0;
+            /* Change to your desired hover background color */
+        }
+
+        .nav-item.active a {
+            color: #00bbf0;
+            /* Change to your desired selected background color */
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            transition: color 0.3s ease;
+            /* Add smooth transition for text color change */
+        }
+
+        .detail-box {
+            max-width: 600px;
+            margin: 20px 20px 90px 300px;
+            /* Adjust the left margin to move it a bit to the left */
+            /*margin: 20px 20px 20px 10px;, where the values represent top, right, bottom, and left margins respectively.*/
+            padding: 20px;
+
+            /* Drop shadow for a subtle effect */
+            text-align: left;
+        }
+
+        .detail-box h1 {
+            color: white;
+            /* Dark text color */
+            font-size: 28px;
+        }
+
+        .detail-box p {
+            color: white;
+            /* Slightly darker text color */
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .btn-box {
+            margin-top: 20px;
+        }
+
+        .btn1 {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            /* To remove the default underline*/
+            color: #fff;
+            /* Text color for the button */
+            background-color: #00bbf0;
+            /* Background color for the button */
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn1:hover {
+            background-color: #0077a5;
+            /* Change to your desired hover background color */
+        }
+
+        /*For proper positioning of elements*/
+        .img-box {
+            margin: 45px 0;
+        }
+
+        /*For proper positioning of elements*/
+        .img-box img {
+            width: 70%;
+            animation: upDown 5s infinite;
+        }
+
+        /*For animation of moment up-down*/
+        @keyframes upDown {
+            0% {
+                transform: translateY(-45px);
+            }
+
+            50% {
+                transform: translateY(45px);
+            }
+
+            100% {
+                transform: translateY(-45px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <div id="logo"> <!-- Add a div for the logo or your element -->
+            <div class="logo-link">
+                <img src="/static/images/logo.png" width="250px" style="border-radius:20px;"><!-- Add your logo or element content -->
+        </div>
+        </div>
+
+        <ul>
+            <li class="nav-item {% if request.path == '/' %}active{% endif %}">
+                <a class="nav-link" href="{{ url_for('index') }}">HOME </a>
+            </li>
+            
+
+            <li class="nav-item {% if request.path == '/service' %}active{% endif %}">
+                <a class="nav-link" href="service">SERVICES</a>
+            </li>
+            <li class="nav-item {% if request.path == '/about' %}active{% endif %}">
+                <a class="nav-link" href="about"> ABOUT
+                </a>
+            </li>
+
+            <li class="nav-item {% if request.path == '/login' %}active{% endif %}">
+                <a class="nav-link" href='login'> LOGIN</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="detail-box">
+        <h1>
+            NIFTY 50
+
+        </h1>
+        <p>
+            The NIFTY 50 is a benchmark Indian stock market index that represents the weighted average of 50 of the
+            largest Indian companies listed on the National Stock Exchange. Nifty 50 is owned and managed by NSE
+            Indices, which is a wholly owned subsidiary of the NSE Strategic Investment Corporation Limited.
+        </p>
+        <div class="btn-box">
+            <a href="login" class="btn1">
+                Get Started
+            </a>
+        </div>
+    </div>
+
+    <div class="img-box">
+        <img src="/static/images/slider-img.png" alt="">
+    </div>
+
+</body>
+
+</html>

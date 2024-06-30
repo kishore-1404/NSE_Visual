@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TitanTrade</title>
+    <style>
+        body {
+            font-family: "Open Sans", sans-serif;
+
+        }
+
+
+        #sidebar-container {
+            position: fixed;
+            top: 80px;
+            right: 0;
+            bottom: 10px;
+            width: 270px;
+            /* Adjust the width as needed */
+            background-color: #f8f9fa;
+            /* Set background color */
+            padding: 40px;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+            /* Add a shadow for better visibility */
+            z-index: 1000;
+            /* Set a higher z-index to layer it on top of other elements */
+            overflow-y: auto;
+            /* Enable vertical scroll if content exceeds the height */
+        }
+
+        #sidebar {
+            width: 100%;
+        }
+
+        #search-bar {
+            width: 90%;
+            margin-bottom: 15px;
+            padding: 10px;
+        }
+
+        #sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #sidebar ul li {
+            padding: 10px;
+            cursor: pointer;
+            border-bottom: 1px solid #ccc;
+            /* Add a border between items */
+        }
+
+        #sidebar li.active {
+            border: 2px solid #00bbf0;
+            background-color: #f0f8ff;
+        }
+
+        /* Add a style for the hover effect */
+        #sidebar li:hover {
+            background-color: #e0f0ff;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            height: 55px;
+            /* Set a fixed height */
+            background-image: url('/static/images/hero-bg.png');
+            /* Replace 'your-image.jpg' with the path to your image */
+            background-size: cover;
+            /* Ensure the image covers the entire background */
+            background-position: center;
+            /* Center the background image */
+            padding: 25px 5px;
+            z-index: 1001;
+            /* Ensure the navigation bar is above the sidebar */
+            display: flex;
+            align-items: center;
+            /* Align items vertically in the middle */
+            justify-content: space-between;
+        }
+
+        #logo {
+            margin-left: 20px;
+
+            /* Add some left margin to space the logo from the left edge */
+        }
+
+        .logo-link {
+
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            /* Align items vertically in the middle */
+            justify-content: flex-end;
+        }
+
+        nav li {
+            margin-right: 30px;
+
+        }
+
+        .nav-link:hover {
+            color: #00bbf0;
+            /* Change to your desired hover background color */
+        }
+
+        .nav-item.active a {
+            color: #00bbf0;
+            /* Change to your desired selected background color */
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            transition: color 0.3s ease;
+            /* Add smooth transition for text color change */
+        }
+
+        button{
+                padding: 15px;
+                border: 2px;
+                background-color: #0cd1a0;
+                width: 266px;
+                border-radius: 20px;
+                margin-left: 42px;
+                box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            }
+        
+        #content {
+            margin-top: 70px;
+            /* Set margin equal to the height of the navigation bar */
+            padding: 0px;
+            /* Add padding to the content as needed */
+        }
+
+        #page-links {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+
+            padding: 10px;
+            margin-top: 100px;
+            /* Adjust margin-top as needed */
+        }
+
+        .page-link-box {
+            margin-right: 20px;
+            background-color: #ffffff;
+            padding: 20px;
+            /* Add padding for spacing inside the box */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .page-link-box:hover {
+            background-color: lightskyblue;
+            /* Change to your desired hover background color */
+
+        }
+
+        .page-link-box.active {
+            background-color: #00bbf0;
+        }
+
+        .page-link {
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        #sidebar li span.add-item {
+            float: right;
+            /* Align the plus symbol to the right */
+            cursor: pointer;
+            color: #00bbf0;
+            /* Set the color of the plus symbol */
+            font-weight: bold;
+            margin-left: 10px;
+            /* Add some spacing between the item and the plus symbol */
+        }
+
+        /* Add this style for the added-item boxes */
+        #horizontal-bar {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+
+            overflow-x: auto;
+            /* Add horizontal scroll */
+            position: relative;
+            top: -70px;
+            max-width: 55%;
+            /* Set a specific width (adjust as needed) */
+            margin-left: auto;
+            /* Center the bar by pushing it to the right */
+            margin-right: auto;
+            /* Center the bar by pushing it to the left */
+
+        }
+
+        .added-item-box {
+            background-color: #f0f8ff;
+            /* Set background color for the added-item boxes */
+            margin-right: 20px;
+            background-color: burlywood;
+            padding: 20px;
+            /* Add padding for spacing inside the box */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            white-space: nowrap;
+            /* Prevent text from wrapping (BAJA-AUTO) */
+
+        }
+
+        .get_graph{
+            padding: 5px;
+            margin-left: 800px;
+            margin-top:-59px
+        }
+        .reset{
+            padding: 5px;
+            margin-left: 400px;
+        }
+        /* #plotly-graph { */
+            /* width: 1200px; */
+            /* height: 1800px;  */
+            /* padding-top: 270px;
+            padding-bottom: -500px; */
+            /* border: 2px solid #ddd;  */
+            /* border-radius: 5px; */
+                /* } */
+    </style>
+
+
+
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+
+
+        <div id="logo"> <!-- Add a div for the logo or your element -->
+            <div class="logo-link">
+                <img src="/static/images/logo.png" width="250px" style="border-radius:20px;"><!-- Add your logo or element content -->
+        </div>
+        </div>
+
+        <ul>
+          
+
+
+            <li class="nav-item">
+                <a class="nav-link" href="/"> LOGOUT</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Additional Boxes with Links -->
+    <div id="page-links">
+        <div class="page-link-box">
+            <a href="stocks" class="page-link">STOCKS</a>
+        </div>
+        <div class="page-link-box active">
+            <a href="charts" class="page-link">CHARTS</a>
+        </div>
+    </div>
+
+    <!-- Add this div where you want the horizontal bar to appear -->
+    <div id="horizontal-bar">
+        <!-- The added items will be displayed here -->
+    </div>
+    <div class="reset">
+        <button onclick="reset()">Reset</button>
+    </div>
+    <div class="get_graph">
+        <a href="graph"><button onclick="graph()">Get Graph</button></a>
+    </div>
+
+    <div id="content">
+        
+        <div id="plotly-graph">
+            {{ graph_html_content | safe }}
+        </div>
+    </div>
+
+    <div id="sidebar-container">
+        <div id="sidebar">
+            <!-- Search bar -->
+            <input type="text" id="search-bar" placeholder="Search...">
+            <ul>
+                <!-- Repeat this list item for each of your 50 items -->
+                <li data-item-id="ADANIENT.NS">ADANIENT.NS<span class="add-item">+</span></li>
+                <li data-item-id="ADANIPORTS.NS">ADANIPORTS.NS<span class="add-item">+</span></li>
+                <li data-item-id="APOLLOHOSP.NS">APOLLOHOSP.NS <span class="add-item">+</span></li>
+                <li data-item-id="ASIANPAINT.NS">ASIANPAINT.NS <span class="add-item">+</span></li>
+                <li data-item-id="AXISBANK.NS">AXISBANK.NS <span class="add-item">+</span></li>
+                <li data-item-id="BAJAJ-AUTO.NS">BAJAJ-AUTO.NS <span class="add-item">+</span></li>
+                <li data-item-id="BAJFINANCE.NS">BAJFINANCE.NS <span class="add-item">+</span></li>
+                <li data-item-id="BAJAJFINSV.NS">BAJAJFINSV.NS <span class="add-item">+</span></li>
+                <li data-item-id="BPCL.NS">BPCL.NS <span class="add-item">+</span></li>
+                <li data-item-id="BHARTIARTL.NS">BHARTIARTL.NS<span class="add-item">+</span></li>
+                <li data-item-id="BRITANNIA.NS">BRITANNIA.NS<span class="add-item">+</span></li>
+                <li data-item-id="CIPLA.NS">CIPLA.NS<span class="add-item">+</span></li>
+                <li data-item-id="COALINDIA.NS">COALINDIA.NS<span class="add-item">+</span></li>
+                <li data-item-id="DIVISLAB.NS">DIVISLAB.NS<span class="add-item">+</span></li>
+                <li data-item-id="DRREDDY.NS">DRREDDY.NS<span class="add-item">+</span></li>
+                <li data-item-id="EICHERMOT.NS">EICHERMOT.NS<span class="add-item">+</span></li>
+                <li data-item-id="GRASIM.NS">GRASIM.NS<span class="add-item">+</span></li>
+                <li data-item-id="HCLTECH.NS">HCLTECH.NS<span class="add-item">+</span></li>
+                <li data-item-id="HDFCBANK.NS">HDFCBANK.NS<span class="add-item">+</span></li>
+                <li data-item-id="HDFCLIFE.NS">HDFCLIFE.NS<span class="add-item">+</span></li>
+                <li data-item-id="HEROMOTOCO.NS">HEROMOTOCO.NS<span class="add-item">+</span></li>
+                <li data-item-id="HINDALCO.NS">HINDALCO.NS<span class="add-item">+</span></li>
+                <li data-item-id="HINDUNILVR.NS">HINDUNILVR.NS<span class="add-item">+</span></li>
+                <li data-item-id="ICICIBANK.NS">ICICIBANK.NS<span class="add-item">+</span></li>
+                <li data-item-id="ITC.NS">ITC.NS<span class="add-item">+</span></li>
+                <li data-item-id="INDUSINDBK.NS">INDUSINDBK.NS<span class="add-item">+</span></li>
+                <li data-item-id="INFY.NS">INFY.NS<span class="add-item">+</span></li>
+                <li data-item-id="JSWSTEEL.NS">JSWSTEEL.NS<span class="add-item">+</span></li>
+                <li data-item-id="KOTAKBANK.NS">KOTAKBANK.NS<span class="add-item">+</span></li>
+                <li data-item-id="LTIM.NS">LTIM.NS<span class="add-item">+</span></li>
+                <li data-item-id="LT.NS">LT.NS<span class="add-item">+</span></li>
+                <li data-item-id="MARUTI.NS">MARUTI.NS<span class="add-item">+</span></li>
+                <li data-item-id="NTPC.NS">NTPC.NS<span class="add-item">+</span></li>
+                <li data-item-id="NESTLEIND.NS">NESTLEIND.NS<span class="add-item">+</span></li>
+                <li data-item-id="ONGC.NS">ONGC.NS<span class="add-item">+</span></li>
+                <li data-item-id="POWERGRID.NS">POWERGRID.NS<span class="add-item">+</span></li>
+                <li data-item-id="RELIANCE.NS">RELIANCE.NS<span class="add-item">+</span></li>
+                <li data-item-id="SBILIFE.NS">SBILIFE.NS<span class="add-item">+</span></li>
+                <li data-item-id="SBIN.NS">SBIN.NS<span class="add-item">+</span></li>
+                <li data-item-id="SHREECEM.NS">SHREECEM.NS<span class="add-item">+</span></li>
+                <li data-item-id="SUNPHARMA.NS">SUNPHARMA.NS<span class="add-item">+</span></li>
+                <li data-item-id="TCS.NS">TCS.NS<span class="add-item">+</span></li>
+                <li data-item-id="TATACONSUM.NS">TATACONSUM.NS<span class="add-item">+</span></li>
+                <li data-item-id="TATAMOTORS.NS">TATAMOTORS.NS<span class="add-item">+</span></li>
+                <li data-item-id="TATASTEEL.NS">TATASTEEL.NS<span class="add-item">+</span></li>
+                <li data-item-id="TECHM.NS">TECHM.NS<span class="add-item">+</span></li>
+                <li data-item-id="TITAN.NS">TITAN.NS<span class="add-item">+</span></li>
+                <li data-item-id="UPL.NS">UPL.NS<span class="add-item">+</span></li>
+                <li data-item-id="ULTRACEMCO.NS">ULTRACEMCO.NS<span class="add-item">+</span></li>
+                <li data-item-id="WIPRO.NS">WIPRO.NS<span class="add-item">+</span></li>
+
+                <!-- ... Your list items go here ... -->
+            </ul>
+        </div>
+    </div>
+
+    <!-- Additional container to display item details -->
+    <!-- <div id="item-details-container"> -->
+        <!-- Content of the details will be populated dynamically -->
+        <!-- <h2>Item Details</h2> -->
+        <!-- <p id="item-details">Default item details will be displayed here.</p> -->
+    <!-- </div> -->
+
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    
+
+    <script>
+        // JavaScript for filtering sidebar items based on search input
+        document.getElementById('search-bar').addEventListener('input', function () {
+            var searchInput = this.value.toLowerCase();
+            var listItems = document.querySelectorAll('#sidebar li');
+
+            listItems.forEach(function (item) {
+                var itemName = item.textContent.toLowerCase();
+
+                // Hide or show items based on search input
+                if (itemName.includes(searchInput)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+
+        
+        // JavaScript to handle item clicks(+ symbol) and display details
+        var selectedItems = []; // Array to store selected items
+
+        // Function to add an item to the horizontal bar
+        function getWatchlistSymbols() {
+            fetch('/api/watchlist_symbols')
+                .then(response => response.json())
+                .then(symbols => {
+                    const horizontalBar = document.getElementById('horizontal-bar');
+                    horizontalBar.innerHTML = ''; // Clear existing items
+                    symbols.forEach(symbol => {
+                        const addedItemBox = document.createElement('div');
+                        addedItemBox.className = 'added-item-box';
+                        addedItemBox.textContent = symbol;
+                        horizontalBar.appendChild(addedItemBox);
+                    });
+                })
+                .catch(error => console.error('Error fetching watchlist symbols:', error));
+        }
+
+        window.onload = function () {
+            getWatchlistSymbols();
+
+        }
+
+        function addToWatchList(itemId) {
+            fetch(`/WatchList_db/${itemId}`, {
+                // Assuming you want to use the POST method to add a symbol
+            })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Symbol added successfully');
+                        // Optionally, you can do something else on success
+                        return getWatchlistSymbols(); // Chain the next operation
+                    } else {
+                        console.error('Failed to add symbol:', response.status);
+                        // Optionally, you can handle the error in another way
+                    }
+                })
+                .catch(error => {
+                    console.error('Error during fetch:', error);
+                    // Optionally, you can handle the error in another way
+                });
+        }
+
+
+
+
+
+        // Event listener for plus symbols
+        document.querySelectorAll('#sidebar li span.add-item').forEach(function (plusSymbol) {
+            plusSymbol.addEventListener('click', function (event) {
+                event.stopPropagation(); // Prevent the li click event from triggering
+                var itemId = this.parentNode.getAttribute('data-item-id');
+                addToWatchList(itemId);
+                getWatchlistSymbols();
+            });
+        });
+
+        // Event listener for pageshow to handle the case when the user navigates back
+        window.onpageshow = function (event) {
+           
+                // Page is coming from the cache (navigated back)
+                getWatchlistSymbols();
+            
+        };
+
+        function graph(){
+            fetch(`/graph`)
+        }
+        function  reset(){
+            fetch(`/reset/watch_list`)
+                .then(response => {
+                    getWatchlistSymbols();
+                })
+                .catch(error => {
+                    console.error(error);
+                    // Handle error appropriately
+                });
+        }
+    </script>
+
+</body>
+
+</html>
